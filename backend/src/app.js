@@ -35,7 +35,9 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Pre-flight for all routes
+// NOTE: app.options('*', ...) is NOT used here — Express 5's path-to-regexp
+// no longer accepts bare '*' wildcards. Global app.use(cors()) already
+// handles OPTIONS pre-flight for every route automatically.
 
 // ─── Body Parsing ──────────────────────────────────────────────────────────────
 app.use(express.json({ limit: '10mb' }));
