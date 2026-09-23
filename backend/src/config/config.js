@@ -11,11 +11,11 @@ const config = {
   mongoUri: process.env.MONGODB_URI,
   clientOrigin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
 
-  // ── Phase 2 placeholders ──────────────────────────────────────────────────
-  // jwt: {
-  //   secret: process.env.JWT_SECRET,
-  //   expiresIn: process.env.JWT_EXPIRES_IN || '7d',
-  // },
+  // ── Phase 2 variables ──────────────────────────────────────────────────
+  jwt: {
+    secret: process.env.JWT_SECRET,
+    expiresIn: process.env.JWT_EXPIRES_IN || '7d',
+  },
 
   // ── Phase 2+ placeholders ─────────────────────────────────────────────────
   // cloudinary: {

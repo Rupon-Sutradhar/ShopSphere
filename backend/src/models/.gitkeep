@@ -1,6 +1,0 @@
-// Models will be added as each phase requires them.
-//
-// Phase 2: User.js, Category.js, Product.js
-// Phase 3: Cart.js (or CartItem embedded in User)
-// Phase 4: Order.js, OrderItem.js
-// Phase 5: Payment.js (if needed separately from Order)

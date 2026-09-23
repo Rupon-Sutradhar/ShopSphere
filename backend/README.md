@@ -11,10 +11,10 @@ ShopSphere is a production-oriented e-commerce platform built with the MERN stac
 The project is being built incrementally across **5 phases**:
 
 | Phase | Focus | Status |
-|-------|-------|--------|
+|---|---|---|
 | 1 | Project Foundation + Backend Core | ✅ **Complete** |
-| 2 | Auth + Products + Categories + Admin Backend | ⏳ Pending |
-| 3 | React Frontend + UI + Product Browsing + Cart | ⏳ Pending |
+| 2 | Auth + Products + Categories + Admin Backend | ✅ **Complete** |
+| 3 | React Frontend + UI + Product Browsing + Cart | ✅ **Complete** |
 | 4 | Frontend/Backend Integration + Orders + Checkout | ⏳ Pending |
 | 5 | Stripe + Webhooks + Production Security + Docker + CI/CD | ⏳ Pending |
 
@@ -124,6 +124,20 @@ npm start
 | Method | Endpoint | Description | Auth |
 |--------|----------|-------------|------|
 | GET | `/api/health` | API & DB health check | Public |
+| POST | `/api/auth/register` | Register new user | Public |
+| POST | `/api/auth/login` | Login user | Public |
+| POST | `/api/auth/logout` | Logout user | Public |
+| GET | `/api/auth/me` | Get current user | Private |
+| GET | `/api/products` | Get all products | Public |
+| GET | `/api/products/:id`| Get single product | Public |
+| POST | `/api/products` | Create product | Admin |
+| PUT | `/api/products/:id`| Update product | Admin |
+| DELETE | `/api/products/:id`| Delete product | Admin |
+| GET | `/api/categories` | Get all categories | Public |
+| GET | `/api/categories/:id`| Get single category | Public |
+| POST | `/api/categories` | Create category | Admin |
+| PUT | `/api/categories/:id`| Update category | Admin |
+| DELETE | `/api/categories/:id`| Delete category | Admin |
 
 ### Example Response — `GET /api/health`
 

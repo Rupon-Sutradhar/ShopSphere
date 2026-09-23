@@ -46,8 +46,20 @@ const errorHandler = (err, req, res, next) => { // eslint-disable-line no-unused
     });
   }
 
-  // JWT errors will be handled here in Phase 2.
+  // JWT errors
+  if (err.name === 'JsonWebTokenError') {
+    return res.status(401).json({
+      success: false,
+      message: 'Invalid token. Please log in again.',
+    });
+  }
 
+  if (err.name === 'TokenExpiredError') {
+    return res.status(401).json({
+      success: false,
+      message: 'Your token has expired. Please log in again.',
+    });
+  }
   // Generic response.
   res.status(statusCode).json({
     success: false,

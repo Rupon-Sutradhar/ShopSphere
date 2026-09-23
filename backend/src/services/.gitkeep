@@ -1,7 +1,0 @@
-// Services will be added in Phase 2+.
-// Example structure:
-//
-// authService.js       – login, register, token management
-// productService.js    – CRUD + image upload via Cloudinary
-// orderService.js      – order creation, status management
-// paymentService.js    – Stripe charge + webhook verification

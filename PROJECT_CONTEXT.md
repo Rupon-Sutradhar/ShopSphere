@@ -14,6 +14,8 @@
 ## Current Phase
 
 **✅ Phase 1 — Project Foundation + Backend Core** — COMPLETE
+**✅ Phase 2 — Authentication + Products + Categories + Admin Backend** — COMPLETE
+**✅ Phase 3 — React Frontend + UI + Product Browsing + Cart** — COMPLETE
 
 ---
 
@@ -51,27 +53,57 @@ Any error thrown:
 
 ```
 shopsphere/
-└── backend/
+├── backend/
+│   ├── src/
+│   │   ├── config/
+│   │   ├── controllers/
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   ├── utils/
+│   │   ├── app.js
+│   │   └── server.js
+│   ├── .env
+│   ├── .env.example
+│   ├── .gitignore
+│   ├── package.json
+│   └── README.md
+│
+└── frontend/
     ├── src/
-    │   ├── config/
-    │   │   ├── db.js              # Mongoose connection (exits on failure)
-    │   │   └── config.js          # All env vars read once, exported as object
-    │   ├── controllers/
-    │   │   └── healthController.js # GET /api/health
-    │   ├── middleware/
-    │   │   ├── errorHandler.js    # 4-param Express error handler (LAST middleware)
-    │   │   └── notFound.js        # 404 for unknown routes (before error handler)
-    │   ├── models/                # Empty — Phase 2+ adds User, Product, Category
-    │   ├── routes/
-    │   │   └── healthRoutes.js    # Mounts healthController at /api/health
-    │   ├── services/              # Empty — Phase 2+ adds business logic here
+    │   ├── components/
+    │   │   ├── CartDrawer.jsx
+    │   │   ├── Footer.jsx
+    │   │   ├── Navbar.jsx
+    │   │   ├── ProductCard.jsx
+    │   │   ├── ProductSkeleton.jsx
+    │   │   └── ProtectedRoute.jsx
+    │   ├── context/
+    │   │   ├── AuthContext.jsx
+    │   │   └── CartContext.jsx
+    │   ├── layouts/
+    │   │   └── MainLayout.jsx
+    │   ├── pages/
+    │   │   ├── Admin.jsx
+    │   │   ├── Cart.jsx
+    │   │   ├── Home.jsx
+    │   │   ├── Login.jsx
+    │   │   ├── Orders.jsx
+    │   │   ├── ProductDetails.jsx
+    │   │   ├── Products.jsx
+    │   │   └── Register.jsx
+    │   ├── services/
+    │   │   ├── api.js
+    │   │   ├── authService.js
+    │   │   └── productService.js
     │   ├── utils/
-    │   │   └── AppError.js        # Custom error class: new AppError(msg, statusCode)
-    │   ├── app.js                 # Express setup: CORS, parsers, routes, middleware
-    │   └── server.js              # Entry point: dotenv → DB → listen → shutdown
-    ├── .env                       # Local secrets (gitignored)
-    ├── .env.example               # Template committed to repo
-    ├── .gitignore
+    │   │   └── formatters.js
+    │   ├── App.jsx
+    │   ├── main.jsx
+    │   └── index.css
+    ├── tailwind.config.js
+    ├── vite.config.js
     ├── package.json
     └── README.md
 ```
@@ -108,6 +140,20 @@ shopsphere/
 - [x] `.gitignore` protecting `.env`, `node_modules`, logs
 - [x] `README.md` with full setup, API docs, architecture notes
 - [x] `PROJECT_CONTEXT.md` (this file)
+- [x] **(Phase 2)** JWT Authentication & HTTP-only cookies
+- [x] **(Phase 2)** `authenticate` and `authorize` middleware
+- [x] **(Phase 2)** User, Category, and Product Mongoose models
+- [x] **(Phase 2)** Complete Auth system (Register, Login, Logout, getMe)
+- [x] **(Phase 2)** Complete Product CRUD with pagination, filtering, search, and sorting
+- [x] **(Phase 2)** Complete Category CRUD with auto-slug generation
+- [x] **(Phase 3)** React 18 + Vite frontend with Tailwind CSS
+- [x] **(Phase 3)** React Router v6 routing architecture with nested layouts
+- [x] **(Phase 3)** AuthContext: cookie-based authentication with `/api/auth/me` session check
+- [x] **(Phase 3)** CartContext: stock guards, tax/shipping calculations, and localStorage persistence
+- [x] **(Phase 3)** ProtectedRoute for Customer & Admin RBAC gating
+- [x] **(Phase 3)** Complete store UI: Home, Products catalog, ProductDetails, Cart, CartDrawer, Login, Register, Profile, Orders (placeholder), Admin (placeholder)
+- [x] **(Phase 3)** Product search, category filtering, price filter, sorting, and pagination integration
+- [x] **(Phase 3)** Production build verification (`npm run build` passing)
 
 ---
 
@@ -118,18 +164,19 @@ shopsphere/
 | Method | Path | Controller | Auth | Status |
 |--------|------|-----------|------|--------|
 | GET | `/api/health` | `healthController.getHealth` | Public | ✅ Live |
+| POST | `/api/auth/register` | `authController.register` | Public | ✅ Live |
+| POST | `/api/auth/login` | `authController.login` | Public | ✅ Live |
+| POST | `/api/auth/logout` | `authController.logout` | Public | ✅ Live |
+| GET | `/api/auth/me` | `authController.getMe` | Private | ✅ Live |
+| GET/POST | `/api/products` | `productController...` | Pub/Admin | ✅ Live |
+| GET/PUT/DELETE | `/api/products/:id` | `productController...` | Pub/Admin | ✅ Live |
+| GET/POST | `/api/categories` | `categoryController...` | Pub/Admin | ✅ Live |
+| GET/PUT/DELETE | `/api/categories/:id`| `categoryController...` | Pub/Admin | ✅ Live |
 
-### Planned (Phase 2+)
+### Planned (Phase 3+)
 
 | Method | Path | Notes |
 |--------|------|-------|
-| POST | `/api/auth/register` | Phase 2 |
-| POST | `/api/auth/login` | Phase 2 |
-| POST | `/api/auth/logout` | Phase 2 |
-| GET | `/api/auth/me` | Phase 2 |
-| GET/POST | `/api/products` | Phase 2 |
-| GET/PUT/DELETE | `/api/products/:id` | Phase 2 |
-| GET/POST | `/api/categories` | Phase 2 |
 | GET/PUT/DELETE | `/api/cart` | Phase 3/4 |
 | GET/POST | `/api/orders` | Phase 4 |
 | POST | `/api/payments/stripe` | Phase 5 |
@@ -240,28 +287,29 @@ Fails fast during development. In production, consider a higher value or retry l
 
 ## Pending Work
 
-### Phase 2
-- [ ] JWT authentication (register, login, logout, `/auth/me`)
-- [ ] httpOnly cookie-based refresh tokens
-- [ ] Role-based access control middleware (admin / customer)
-- [ ] `User` model
-- [ ] `Category` model + admin CRUD
-- [ ] `Product` model + admin CRUD
-- [ ] Cloudinary image upload via Multer
-- [ ] Input validation middleware (express-validator or Zod)
+### Phase 2 (Completed)
+- [x] JWT authentication (register, login, logout, `/auth/me`)
+- [x] httpOnly cookie-based refresh tokens
+- [x] Role-based access control middleware (admin / customer)
+- [x] `User` model
+- [x] `Category` model + admin CRUD
+- [x] `Product` model + admin CRUD
+- [x] Cloudinary image upload via Multer (Postponed to later integration)
+- [x] Input validation middleware (Handled via mongoose validators and custom error handling)
 
-### Phase 3
-- [ ] React + Vite + Tailwind CSS setup
-- [ ] React Router v6 routing
-- [ ] Context API (auth + cart state)
-- [ ] Product listing, search, filter
-- [ ] Product detail page
-- [ ] Shopping cart UI
+### Phase 3 (Completed)
+- [x] React + Vite + Tailwind CSS setup
+- [x] React Router v6 routing
+- [x] Context API (auth + cart state)
+- [x] Product listing, search, filter, sorting, pagination
+- [x] Product detail page with gallery and stock limit enforcement
+- [x] Shopping cart UI + slide-over Cart Drawer
 
 ### Phase 4
 - [ ] Cart → Checkout → Order flow
 - [ ] Order model + order routes
-- [ ] Order history
+- [ ] Order history & tracking integration
+- [ ] Admin order management
 
 ### Phase 5
 - [ ] Stripe PaymentIntent integration

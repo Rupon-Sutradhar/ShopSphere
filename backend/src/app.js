@@ -52,14 +52,18 @@ app.use(cookieParser());
 // (Apache-style, suitable for log aggregation tools).
 app.use(morgan(config.nodeEnv === 'production' ? 'combined' : 'dev'));
 
+const authRoutes = require('./routes/authRoutes');
+const productRoutes = require('./routes/productRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
+
 // ─── API Routes ────────────────────────────────────────────────────────────────
 app.use('/api/health', healthRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/categories', categoryRoutes);
 
-// Phase 2+ routes will be added here:
-// app.use('/api/auth',     authRoutes);
+// Phase 3+ routes will be added here:
 // app.use('/api/users',    userRoutes);
-// app.use('/api/products', productRoutes);
-// app.use('/api/categories', categoryRoutes);
 // app.use('/api/cart',     cartRoutes);
 // app.use('/api/orders',   orderRoutes);
 
