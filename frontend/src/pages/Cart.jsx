@@ -153,18 +153,18 @@ const Cart = () => {
             </div>
 
             {/* Note on Phase 4 */}
-            <div className="p-3.5 bg-amber-50 rounded-2xl border border-amber-200 text-xs text-amber-800">
-              <p className="font-semibold mb-0.5">Phase 4 Notice:</p>
-              Complete Checkout & Order creation will be unlocked in Phase 4 backend integration.
+            <div className="p-3.5 bg-emerald-50 rounded-2xl border border-emerald-200 text-xs text-emerald-800">
+              <p className="font-semibold mb-0.5">Phase 4 Active:</p>
+              Checkout is now fully integrated.
             </div>
 
-            <button
-              onClick={() => alert('Phase 3 complete! Order creation & checkout flow will be linked in Phase 4.')}
+            <Link
+              to="/checkout"
               className="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-xl shadow-lg shadow-emerald-700/20 flex items-center justify-center space-x-2 transition-all"
             >
               <span>Proceed to Checkout</span>
               <ArrowRight className="h-4 w-4" />
-            </button>
+            </Link>
 
             <div className="flex items-center justify-center space-x-2 text-xs text-gray-400 pt-2">
               <ShieldCheck className="h-4 w-4 text-emerald-600" />

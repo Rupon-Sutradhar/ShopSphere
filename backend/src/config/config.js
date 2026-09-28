@@ -24,11 +24,11 @@ const config = {
   //   apiSecret: process.env.CLOUDINARY_API_SECRET,
   // },
 
-  // ── Phase 5 placeholders ──────────────────────────────────────────────────
-  // stripe: {
-  //   secretKey: process.env.STRIPE_SECRET_KEY,
-  //   webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
-  // },
+  // ── Phase 5: Stripe ────────────────────────────────────────────────────────
+  stripe: {
+    secretKey: process.env.STRIPE_SECRET_KEY,
+    webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+  },
 };
 
 module.exports = config;

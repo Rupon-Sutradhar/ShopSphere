@@ -16,6 +16,8 @@
 **✅ Phase 1 — Project Foundation + Backend Core** — COMPLETE
 **✅ Phase 2 — Authentication + Products + Categories + Admin Backend** — COMPLETE
 **✅ Phase 3 — React Frontend + UI + Product Browsing + Cart** — COMPLETE
+**✅ Phase 4 — Frontend/Backend Integration + Orders + Checkout** — COMPLETE
+**✅ Phase 5 — Payment + Production + DevOps** — COMPLETE
 
 ---
 
@@ -305,20 +307,23 @@ Fails fast during development. In production, consider a higher value or retry l
 - [x] Product detail page with gallery and stock limit enforcement
 - [x] Shopping cart UI + slide-over Cart Drawer
 
-### Phase 4
-- [ ] Cart → Checkout → Order flow
-- [ ] Order model + order routes
-- [ ] Order history & tracking integration
-- [ ] Admin order management
+### Phase 4 (Completed)
+- [x] Cart → Checkout → Order flow
+- [x] Order model + order routes (calculating subtotal, tax, shipping server-side)
+- [x] Order history & tracking integration
+- [x] Admin order management (status updates)
+- [x] Admin Dashboard (metrics, product and category inventory)
+- [x] Backend stock reduction using Mongoose $inc
 
-### Phase 5
-- [ ] Stripe PaymentIntent integration
-- [ ] Stripe webhooks (order confirmation, refunds)
-- [ ] Rate limiting (express-rate-limit)
-- [ ] Helmet.js security headers
-- [ ] Docker + Docker Compose
-- [ ] GitHub Actions CI/CD
-- [ ] Cloud deployment (MongoDB Atlas + Cloudinary + hosting)
+### Phase 5 (Completed)
+- [x] Stripe PaymentIntent integration
+- [x] Stripe webhooks (order confirmation, refunds)
+- [x] Cloudinary Image Uploads (backend multer + cloudinary setup)
+- [x] Rate limiting (express-rate-limit)
+- [x] Helmet.js security headers
+- [x] Docker + Docker Compose
+- [x] GitHub Actions CI/CD
+- [x] Cloud deployment readiness documentation (MongoDB Atlas + Cloudinary + hosting)
 
 ---
 

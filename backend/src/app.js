@@ -7,6 +7,10 @@ const config = require('./config/config');
 const healthRoutes = require('./routes/healthRoutes');
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
+const paymentRoutes = require('./routes/paymentRoutes');
+const { stripeWebhook } = require('./controllers/paymentController');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 
@@ -39,6 +43,23 @@ app.use(cors(corsOptions));
 // no longer accepts bare '*' wildcards. Global app.use(cors()) already
 // handles OPTIONS pre-flight for every route automatically.
 
+// ─── Production Security ───────────────────────────────────────────────────────
+app.use(helmet());
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+  standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+});
+app.use('/api', apiLimiter);
+
+// ─── Stripe Webhook ────────────────────────────────────────────────────────────
+// Must be mounted before express.json() because Stripe needs the raw body.
+// Uses app.post() (not app.use()) because webhooks are always POST and
+// stripeWebhook is a terminal handler, not an Express Router.
+app.post('/api/payment/webhook', express.raw({ type: 'application/json' }), stripeWebhook);
+
 // ─── Body Parsing ──────────────────────────────────────────────────────────────
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -55,17 +76,20 @@ app.use(morgan(config.nodeEnv === 'production' ? 'combined' : 'dev'));
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 
 // ─── API Routes ────────────────────────────────────────────────────────────────
 app.use('/api/health', healthRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/upload', require('./routes/uploadRoutes'));
+app.use('/api/payment', paymentRoutes); // Non-webhook payment routes like create-payment-intent
 
 // Phase 3+ routes will be added here:
 // app.use('/api/users',    userRoutes);
 // app.use('/api/cart',     cartRoutes);
-// app.use('/api/orders',   orderRoutes);
 
 // ─── 404 Handler ───────────────────────────────────────────────────────────────
 // Must come AFTER all routes so only truly unknown routes hit it.
