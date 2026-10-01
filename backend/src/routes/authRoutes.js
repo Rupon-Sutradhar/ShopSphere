@@ -9,7 +9,7 @@ const router = Router();
  * @desc    Register a new user
  * @access  Public
  */
-router.post('/', authController.register);
+router.post('/register', authController.register);
 
 /**
  * @route   POST /api/auth/login

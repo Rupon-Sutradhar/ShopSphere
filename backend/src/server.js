@@ -18,8 +18,8 @@ const startServer = async () => {
   await connectDB();
 
   const server = app.listen(config.port, () => {
-    console.log(`🚀  Server running in ${config.nodeEnv} mode on port ${config.port}`);
-    console.log(`🔗  Health check: http://localhost:${config.port}/api/health`);
+    console.log(`Server running in ${config.nodeEnv} mode on port ${config.port}`);
+    console.log(`Health check: http://localhost:${config.port}/api/health`);
   });
 
   // ── Graceful shutdown ────────────────────────────────────────────────────────

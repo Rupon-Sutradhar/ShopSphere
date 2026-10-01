@@ -1,6 +1,6 @@
 const Order = require('../models/Order');
 const Product = require('../models/Product');
-const AppError = require('../utils/AppError');
+const { AppError } = require('../utils/AppError');
 
 const createOrder = async (userId, items, shippingAddress) => {
   if (!items || items.length === 0) {

@@ -14,6 +14,10 @@ const rateLimit = require('express-rate-limit');
 
 const app = express();
 
+// Required when the app is behind Docker/Nginx/a cloud load balancer. It lets
+// Express correctly identify HTTPS requests and client IP addresses.
+app.set('trust proxy', 1);
+
 // ─── CORS ──────────────────────────────────────────────────────────────────────
 // In development we allow the Vite dev server origin.
 // In production this list will be restricted to the deployed frontend domain.

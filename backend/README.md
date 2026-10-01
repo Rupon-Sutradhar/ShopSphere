@@ -210,3 +210,57 @@ npm start
 - Docker + Docker Compose
 - GitHub Actions CI/CD pipeline
 - Cloud deployment (Railway / Render / AWS)
+
+---
+
+## Production setup (Phase 5)
+
+The app includes Stripe Payment Intents, signed Stripe webhooks, Helmet, rate
+limiting, Docker images, an Nginx reverse proxy, and a GitHub Actions build
+pipeline. Never commit secrets or put a Stripe secret key in frontend code.
+
+### Backend secrets
+
+Set these in `backend/.env` locally, or in your deployment provider's secret
+environment variables:
+
+```env
+NODE_ENV=production
+MONGODB_URI=mongodb+srv://<user>:<url-encoded-password>@<cluster>/shopsphere?retryWrites=true&w=majority
+JWT_SECRET=<a-long-random-value>
+JWT_EXPIRES_IN=7d
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+CLIENT_ORIGIN=https://your-domain.example
+```
+
+### Stripe webhook
+
+In Stripe Dashboard, add `https://your-domain.example/api/payment/webhook` as
+a webhook endpoint, subscribe to `payment_intent.succeeded`, and copy its
+signing secret into `STRIPE_WEBHOOK_SECRET`. For local testing:
+
+```bash
+stripe listen --forward-to localhost:5000/api/payment/webhook
+```
+
+Use the `whsec_...` value printed by the Stripe CLI only in local `.env`.
+
+### Docker
+
+At repository root, copy `.env.docker.example` to `.env.docker`, enter the
+Stripe publishable key, then run:
+
+```bash
+docker compose --env-file .env.docker up --build
+```
+
+Open `http://localhost:8080`. Docker reads server secrets from `backend/.env`
+and deliberately uses its Atlas URI rather than starting a local MongoDB
+container.
+
+### GitHub Actions
+
+Add `VITE_STRIPE_PUBLISHABLE_KEY` in the repository's **Settings → Secrets and
+variables → Actions**. The workflow installs dependencies, lint/builds the
+frontend, and builds both Docker images for pushes and pull requests to `main`.

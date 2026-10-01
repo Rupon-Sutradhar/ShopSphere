@@ -44,6 +44,11 @@ const orderSchema = new mongoose.Schema({
     status: { type: String },
     email_address: { type: String },
   },
+  paymentIntentId: {
+    type: String,
+    unique: true,
+    sparse: true,
+  },
 }, {
   timestamps: true,
 });

@@ -16,10 +16,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
@@ -45,6 +45,9 @@ jobs:
       env:
         VITE_API_URL: /api
         VITE_STRIPE_PUBLISHABLE_KEY: ${{ secrets.VITE_STRIPE_PUBLISHABLE_KEY }}
+
+    - name: Build Docker images
+      run: docker compose --env-file .env.docker.example build
 
     # Optionally, you can add backend tests here if you write them later:
     # - name: Run Backend Tests
