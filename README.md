@@ -98,3 +98,17 @@ Manual End-to-End testing passed for:
 - Checkout, Order Creation, Stripe Payment
 - Webhook Order Status Updates
 - Admin Dashboard CRUD Operations
+
+## 🌐 Frontend-only GitHub Pages deployment
+
+The repository includes a Pages workflow at `.github/workflows/deploy-pages.yml`. It builds only the React frontend and publishes it to GitHub Pages in demo mode, so the deployed site works without MongoDB, Express, Stripe, or a separate backend host.
+
+The demo catalog, login session, cart, orders, and admin changes are stored in the browser's local storage. To preview the admin dashboard, sign in with any email containing `admin` (for example, `admin@shopsphere.demo`) and a password with at least six characters.
+
+To enable it on GitHub:
+
+1. Push the repository to GitHub.
+2. Open **Settings → Pages** and choose **GitHub Actions** as the source.
+3. Push to `main` or run **Deploy frontend to GitHub Pages** from the Actions tab.
+
+The site URL is normally `https://<github-user>.github.io/ShopSphere/`. Local development keeps using the real backend API unless `VITE_DEMO_MODE=true` is supplied.

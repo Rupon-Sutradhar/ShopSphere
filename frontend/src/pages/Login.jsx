@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { LogIn, ShoppingBag, AlertCircle, Loader2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { isDemoMode } from '../services/demoStore';
 
 const Login = () => {
   const { login } = useAuth();
@@ -43,6 +44,12 @@ const Login = () => {
           <p className="text-sm text-gray-500">Sign in to your ShopSphere account</p>
         </div>
 
+        {isDemoMode && (
+          <div className="p-3 bg-emerald-50 border border-emerald-100 rounded-xl text-xs text-emerald-800">
+            Demo mode is active. Use any valid email and a 6+ character password. Use an email containing <strong>admin</strong> to preview the admin dashboard.
+          </div>
+        )}
+
         {serverError && (
           <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl flex items-center space-x-2 text-xs font-semibold text-red-600">
             <AlertCircle className="h-4 w-4 flex-shrink-0" />
@@ -57,7 +64,7 @@ const Login = () => {
             </label>
             <input
               type="email"
-              placeholder="you@example.com"
+              placeholder="rupon@example.com"
               {...register('email', {
                 required: 'Email address is required',
                 pattern: {
